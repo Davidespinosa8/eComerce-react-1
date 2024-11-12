@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { LoginPage, ProfilePage, RegisterPage } from "./pages/auth/index";
 import HomePage from "./pages/home/home-page";
+import { FooterBar, NavBar } from "./components";
 
 const App = () => {
 
   return (
     <>
-      <nav></nav>
+      <NavBar />
 
       <main>
         <Routes>
@@ -17,7 +18,7 @@ const App = () => {
         </Routes>
       </main>
 
-      <footer></footer>
+      <FooterBar />
     </>
   )
 };
