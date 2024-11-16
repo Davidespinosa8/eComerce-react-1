@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { decreaseQty, increaseQty, removeFromCart } from "../../redux/slices/cart-slice";
+import { message } from "antd";
 
 export const CartPage = () => {
     const cart = useSelector((state) => state.cart);
@@ -10,7 +11,7 @@ export const CartPage = () => {
             return false;
         }
         dispatch(removeFromCart(item.id));
-        toast.error("Artículo eliminado del carrito.");
+        message.error("Artículo eliminado del carrito.");
     };
 
     const increase = (item) => {
@@ -18,7 +19,7 @@ export const CartPage = () => {
     };
 
     const decrease = (item) => {
-        if (item.qty === 1) {
+        if (item.quantity <= 1) {
             remove(item);
         } else dispatch(decreaseQty(item.id));
     };

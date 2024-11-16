@@ -32,7 +32,7 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
                 </a> */}
                 {cart.some(itmCart => itmCart.id === item.id)
                     ? <button onClick={() => {removeProductToCart(item.id)}}><FaTrash/></button>
-                    : <button className="bg-black text-white" onClick={() => {addProductToCart(item)}}><FaCartPlus/> Add To Cart</button>
+                    : <button className="bg-black text-white font-bold py-2 px-4 rounded" onClick={() => {addProductToCart(item)}}><FaCartPlus/> Add To Cart</button>
                 }
                 <p className="mb-3 font-normal text-red-800">${item.price}</p>
             </div>
