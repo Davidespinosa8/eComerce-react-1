@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUserLogged } from '../redux/slices/user-slice';
-import { FaHome } from "react-icons/fa";
+import { clearUserLogged } from "../../redux/slices/user-slice";
 
 export const NavBar = () => {
     const dispatch = useDispatch();
