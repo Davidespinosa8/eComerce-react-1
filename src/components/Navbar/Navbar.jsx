@@ -1,73 +1,108 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { clearUserLogged } from "../../redux/slices/user-slice";
 
-export const NavBar = () => {
-    const dispatch = useDispatch();
-    const nav = useNavigate();
-    const userLogged = useSelector((state) => state.user.userLogged);
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userLogged = useSelector((state) => state.user.userLogged);
 
-    const sessionClose = () => {
-        dispatch(clearUserLogged());
-        nav("/");
-    };
+  const sessionClose = () => {
+    dispatch(clearUserLogged());
+    navigate("/");
+  };
 
-    // console.log('NavBar - userLogged', userLogged);
+  return (
+    <header className="bg-white border-b shadow-sm pt-14">
+      {/* Main Navigation */}
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
+        {/* Logo */}
+        <a href="/" className="flex items-center space-x-2">
+          <img
+            src="/src/assets/Logo/carrito-de-compras.png" // Cambia esto por tu logo
+            alt="Logo"
+            className="h-8 w-auto"
+          />
+          <span className="text-2xl font-semibold text-gray-800">
+            Ecommerce React
+          </span>
+        </a>
 
-    return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
-            <div className="bg-black text-white text-center">
-                Summer Sail For All Swim Suits And Free Express Delibery - OFF 50%! ShopNow
-            </div>
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
-                    {/* <FaHome size={42} /> */}
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Home</span>
-                </a>
-                <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-                    <span className="sr-only">Open main menu</span>
-                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
-                <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        {/* <li>
-                            <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">
-                                Home
-                            </a>
-                        </li> */}
-                        {/* <li>
-                <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  About
-                </a>
-              </li> */}
-                        {userLogged
-                            ? <>
-                                <li>{userLogged.name}</li>
-                                <li><button onClick={sessionClose}>Cerrar sesión</button></li>
-                            </>
-                            : <>
-                                <li>
-                                    <a href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                        Inicia sesión
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/register" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                        Registrate
-                                    </a>
-                                </li>
-                            </>}
-                        {/* <li>
-                <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  Contact
-                </a>
-              </li> */}
-                    </ul>
-                </div>
-            </div>
+        {/* Navigation */}
+        <nav className="hidden md:flex space-x-6">
+          {userLogged ? (
+            <>
+              <span className="text-gray-600">Welcome, {userLogged.name}</span>
+              <button
+                onClick={sessionClose}
+                className="text-gray-800 hover:text-red-600"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <a
+                href="/login"
+                className="text-gray-800 hover:text-blue-600 transition"
+              >
+                Login
+              </a>
+              <a
+                href="/register"
+                className="text-gray-800 hover:text-blue-600 transition"
+              >
+                Register
+              </a>
+            </>
+          )}
         </nav>
-    );
-}
+
+        {/* Theme Switcher */}
+        <button
+          className="hidden md:inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-200"
+          aria-label="Toggle Theme"
+        >
+          {/* Puedes reemplazar esto con tu funcionalidad de tema */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-6 h-6 text-gray-800"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v1m0 16v1m8.485-8.485h-1M4.515 12h-1M16.95 7.05l-.707.707m-8.486 8.486-.707.707M7.05 7.05l.707.707m8.486 8.486.707.707"
+            />
+          </svg>
+        </button>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-200"
+          aria-label="Open Menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-6 h-6 text-gray-800"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Navbar;
