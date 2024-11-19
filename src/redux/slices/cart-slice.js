@@ -20,12 +20,12 @@ const CartSlice = createSlice({
         },
         increaseQty: (state, action) => {
             return state.map((item) =>
-                item.id === action.payload ? { ...item, qty: item.qty + 1 } : item
+                item.id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
             );
         },
         decreaseQty: (state, action) => {
             return state.map((item) =>
-                item.id === action.payload ? { ...item, qty: item.qty - 1 } : item
+                item.id === action.payload ? { ...item, quantity: item.quantity - 1 } : item
             );
         },
     },
