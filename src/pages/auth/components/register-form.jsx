@@ -33,7 +33,7 @@ export const RegisterForm = () => {
             name: Yup.string().required(formikMessages.required),
             email: Yup.string().email(formikMessages.email).required(formikMessages.required),
             password: Yup.string().required(formikMessages.required),
-            passwordConfirmation: Yup.string().required(formikMessages.required).oneOf([Yup.ref('password'), null], formikMessages.passwordConfirmation)
+            // passwordConfirmation: Yup.string().required(formikMessages.required).oneOf([Yup.ref('password'), null], formikMessages.passwordConfirmation)
         }),
         onSubmit: async (values) => {
             const data = {
@@ -93,7 +93,7 @@ export const RegisterForm = () => {
                 <button type={"submit"}>Iniciar Sesión</button>
             </div> */}
             <div className="flex flex-col gap-4 items-center mt-2">
-                <button
+                <button type="submit"
                     className={`bg-red-700 px-4 py-1 rounded-md font-semibold text-white ${isLoading ? "opacity-40" : ""
                         }`}
                     disabled={isLoading}
