@@ -36,20 +36,21 @@ export const RegisterForm = () => {
             // passwordConfirmation: Yup.string().required(formikMessages.required).oneOf([Yup.ref('password'), null], formikMessages.passwordConfirmation)
         }),
         onSubmit: async (values) => {
-            const data = {
-                name: values.name,
-                email: values.email,
-                password: values.password
-            };
-            const response = await register(data);
-            console.log(response);
-            if (!response.data.success) {
-                message.error(response.data.msg);
-            } else {
-                message.success('Usted ha sido registrado correctamente.');
-                const user = response.data.result;
-                dispatch(setUserLogged(user));
+            try {
+                setIsLoading(true);
+                const data = {
+                    name: values.name,
+                    email: values.email,
+                    password: values.password
+                };
+                const response = await register(data);
+                console.log('RegisterForm - handleSubmit', response);
+                dispatch(setUserLogged(response.data.user));
+                // message.success('Usted ha sido registrado correctamente.');
                 navigate("/");
+            } catch (error) {
+                console.log('RegisterForm - handleSubmit', error);
+                setIsLoading(false);
             }
         },
     });
@@ -98,7 +99,7 @@ export const RegisterForm = () => {
                         }`}
                     disabled={isLoading}
                 >
-                    {isLoading ? "Cargando.." : "Create Account"}
+                    {isLoading ? "Aguarde. Creando nueva cuenta..." : "Create Account"}
                 </button>
                 <p className="text-red-700">
                     You have account?{" "}
