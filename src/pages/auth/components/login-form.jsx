@@ -31,22 +31,21 @@ export const LoginForm = () => {
             password: Yup.string().required(formikMessages.required),
         }),
         onSubmit: async (values) => {
-            setIsLoading(true);
-            const data = {
-                userName: values.email,
-                password: values.password
-            };
-            const response = await login(data);
-            console.log(response);
-            if (!response.data.success) {
-                message.error(response.data.msg);
-                setIsLoading(false);
-            } else {
-                message.success('Usted inicio sesión correctamente.');
-                const user = response.data.result;
-                dispatch(setUserLogged(user));
+            try {
+                setIsLoading(true);
+                const data = {
+                    email: values.email,
+                    password: values.password
+                };
+                const response = await login(data);
+                console.log('LoginForm - handleSubmit', response);
+                dispatch(setUserLogged(response.data.user));
                 // dispatch(checkoutCart());
+                // message.success('Usted inicio sesión correctamente.');
                 navigate("/");
+            } catch (error) {
+                console.log('LoginForm - handleSubmit', error);
+                setIsLoading(false);
             }
         },
     });
@@ -87,7 +86,7 @@ export const LoginForm = () => {
                         }`}
                     disabled={isLoading}
                 >
-                    {isLoading ? "Cargando.." : "Log in"}
+                    {isLoading ? "Aguarde. Iniciando sesión..." : "Log in"}
                 </button>
                 <p className="text-red-700">
                     You dont have account?{" "}
