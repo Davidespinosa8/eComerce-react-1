@@ -27,7 +27,9 @@ export const UserSlice = createSlice({
             return state.favorites && state.favorites.find((item) => action.payload === item.id) ? true : false
         },
         removeFavorite: (state, action) => {
-            state.favorites.filter((item) => action.payload !== item.id)
+            // state.favorites.filter((item) => action.payload !== item.id)
+            const lst = state.favorites.filter((item) => action.payload !== item.id);
+            state.favorites = lst;
         },
     },
 })
