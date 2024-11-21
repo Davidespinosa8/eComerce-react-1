@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from './slices/user-slice';
+import userSlice, { setUserLogged } from './slices/user-slice';
 import productSlice from './slices/product-slice';
 import cartSlice, { setCartFromLocalStorage } from './slices/cart-slice';
 
@@ -21,14 +21,25 @@ store.subscribe(() => {
     } else {
         localStorage.removeItem("localCart");
     }
+    if (state.user) {
+        localStorage.setItem("userlogged", JSON.stringify(state.user));
+    } else {
+        localStorage.removeItem("userlogged");
+    }
 });
 
-const loadCartFromLocalStorage = () => {
+const loadFromLocalStorage = () => {
     const storedCart = localStorage.getItem("localCart");
     if (storedCart) {
         const parsedCart = JSON.parse(storedCart);
 
         store.dispatch(setCartFromLocalStorage(parsedCart));
     }
+    const storedUser = localStorage.getItem("userlogged");
+    if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        console.log('store', parsedUser)
+        store.dispatch(setUserLogged(parsedUser));
+    }
 };
-loadCartFromLocalStorage();
+loadFromLocalStorage();

@@ -11,7 +11,7 @@ export const UserSlice = createSlice({
     reducers: {
         setUserLogged: (state, action) => {
             state.userLogged = action.payload
-            localStorage.setItem("userLogged", state.userLogged)
+            // localStorage.setItem("userLogged", JSON.stringify(state.userLogged))
             state.favorites = []
         },
         clearUserLogged: (state) => {

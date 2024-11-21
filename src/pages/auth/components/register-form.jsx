@@ -45,9 +45,9 @@ export const RegisterForm = () => {
                 };
                 const response = await register(data);
                 console.log('RegisterForm - handleSubmit', response);
-                dispatch(setUserLogged(response.data.user));
+                dispatch(setUserLogged(response.data));
                 // message.success('Usted ha sido registrado correctamente.');
-                navigate("/");
+                // navigate("/");
             } catch (error) {
                 console.log('RegisterForm - handleSubmit', error);
                 setIsLoading(false);

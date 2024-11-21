@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts, getProductsSearch } from "../product/services/product-service";
+import { getProducts } from "../product/services/product-service";
 import { productAdapter } from "../product/adapter";
 import { ProductCard } from "../product/components";
 import { useDispatch, useSelector } from "react-redux";
