@@ -13,6 +13,7 @@ export const NavBar = () => {
     const nav = useNavigate();
     const cart = useSelector((state) => state.cart);
     const userLogged = useSelector((state) => state.user.userLogged);
+    console.log('NavBar', userLogged)
     const [search, setSearch] = useState("");
     const [searchDebounce, setSearchDebounce] = useDebounce(search, 300);
 
