@@ -11,14 +11,14 @@ export const UserSlice = createSlice({
     reducers: {
         setUserLogged: (state, action) => {
             state.userLogged = action.payload
-            // localStorage.setItem("userLogged", JSON.stringify(state.userLogged))
+            // localStorage.setItem("userLogged", JSON.stringify(state.userLogged));
             state.favorites = []
         },
         clearUserLogged: (state) => {
             state.favorites = null
             state.userLogged = null
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("userLogged")
+            // localStorage.removeItem("accessToken")
+            // localStorage.removeItem("userLogged")
         },
         setFavorite: (state, action) => {
             state.favorites = [...state.favorites, action.payload]

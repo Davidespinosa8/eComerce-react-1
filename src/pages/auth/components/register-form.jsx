@@ -47,7 +47,7 @@ export const RegisterForm = () => {
                 console.log('RegisterForm - handleSubmit', response);
                 dispatch(setUserLogged(response.data));
                 // message.success('Usted ha sido registrado correctamente.');
-                // navigate("/");
+                navigate("/");
             } catch (error) {
                 console.log('RegisterForm - handleSubmit', error);
                 setIsLoading(false);
