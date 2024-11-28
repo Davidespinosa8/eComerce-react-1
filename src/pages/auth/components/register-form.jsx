@@ -19,7 +19,7 @@ export const RegisterForm = () => {
         email: "Debes introducir una dirección correcta",
         // phone: "Debes introducir un número correcto",
         password: "Debes introducir una contraseña",
-        passwordConfirmation: 'Debe coincidir con el valor del campo "contraseña".'
+        // passwordConfirmation: 'Debe coincidir con el valor del campo "contraseña".'
     };
 
     const formik = useFormik({
@@ -27,7 +27,7 @@ export const RegisterForm = () => {
             name: '',
             email: '',
             password: '',
-            passwordConfirmation: '',
+            // passwordConfirmation: '',
         },
         validationSchema: Yup.object({
             name: Yup.string().required(formikMessages.required),
@@ -50,6 +50,7 @@ export const RegisterForm = () => {
                 navigate("/");
             } catch (error) {
                 console.log('RegisterForm - handleSubmit', error);
+                message.error(error.response.data.message);
                 setIsLoading(false);
             }
         },

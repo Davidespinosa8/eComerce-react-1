@@ -39,7 +39,11 @@ export const WishlistPage = () => {
             setListaSugerida(lst);
         };
         if (products && products.length > 0) {
-            productosSugeridos();
+            if (userFavoriteProducts && userFavoriteProducts.length > 0) {
+                productosSugeridos();
+            } else {
+                setListaSugerida(products);
+            }
 
             //Para ver las categorias de los items.
             // let lstCategories = [];

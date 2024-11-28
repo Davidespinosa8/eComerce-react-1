@@ -31,6 +31,8 @@ store.subscribe(() => {
 
 const loadFromLocalStorage = () => {
     const storedCart = localStorage.getItem("localCart");
+    // const storedUser = localStorage.getItem("userlogged");
+
     if (storedCart) {
         const parsedCart = JSON.parse(storedCart);
         store.dispatch(setCartFromLocalStorage(parsedCart));
