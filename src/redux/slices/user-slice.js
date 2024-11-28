@@ -31,10 +31,13 @@ export const UserSlice = createSlice({
             const lst = state.favorites.filter((item) => action.payload !== item.id);
             state.favorites = lst;
         },
+        setFavoriteFromLocalStorage: (state, action) => {
+            state.favorites = action.payload
+        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserLogged, clearUserLogged, setFavorite, isFavorite, removeFavorite } = UserSlice.actions
+export const { setUserLogged, clearUserLogged, setFavorite, isFavorite, removeFavorite, setFavoriteFromLocalStorage } = UserSlice.actions
 
 export default UserSlice.reducer

@@ -12,10 +12,13 @@ export const NavBar = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const cart = useSelector((state) => state.cart);
+    const cantCart = cart.reduce((acc, curr) => acc + curr.quantity, 0);
     const userLogged = useSelector((state) => state.user.userLogged);
     const [search, setSearch] = useState("");
     // eslint-disable-next-line no-unused-vars
     const [searchDebounce, setSearchDebounce] = useDebounce(search, 300);
+    const userFavoriteProducts = useSelector((state) => state.user.favorites);
+    const cantFavorite = userFavoriteProducts ? userFavoriteProducts.length : 0;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,7 +33,7 @@ export const NavBar = () => {
         };
 
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchDebounce]);
 
     const sessionClose = () => {
@@ -45,9 +48,9 @@ export const NavBar = () => {
             <div className="bg-black text-white text-center">
                 Summer Sail For All Swim Suits And Free Express Delibery - OFF 50%! ShopNow
             </div>
-            
+
             <div className="flex flex-wrap items-center justify-between mx-auto p-2">
-                
+
                 <a href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold">
                     Exclusive
                 </a>
@@ -87,12 +90,13 @@ export const NavBar = () => {
                         <li>
                             <a href="/favorites" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <FaRegHeart />
+                                {cantFavorite > 0 ? cantFavorite : ''}
                             </a>
                         </li>
                         <li>
                             <a href="/cart" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <FaCartShopping />
-                                {cart.reduce((acc, curr)=> acc+curr.quantity, 0)}
+                                {cantCart > 0 ? cantCart : ''}
                             </a>
                         </li>
                         {userLogged

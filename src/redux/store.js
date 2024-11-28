@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice, { setUserLogged } from './slices/user-slice';
+import userSlice, { setFavoriteFromLocalStorage, setUserLogged } from './slices/user-slice';
 import productSlice from './slices/product-slice';
 import cartSlice, { setCartFromLocalStorage } from './slices/cart-slice';
 
@@ -42,6 +42,7 @@ const loadFromLocalStorage = () => {
         const parsedUser = JSON.parse(storedUser);
         // console.log('store.js - loadFromLocalStorage - parsedUser', parsedUser);
         store.dispatch(setUserLogged(parsedUser.userLogged));
+        store.dispatch(setFavoriteFromLocalStorage(parsedUser.favorites));
     }
 };
 loadFromLocalStorage();
