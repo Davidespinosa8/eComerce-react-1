@@ -1,24 +1,67 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserLogged } from '../redux/slices/user-slice';
-import { getProductsSearch } from "../pages/product/services/product-service";
+import { getCategoriesProducts, getProducts, getProductsSearch, getProductsSearchCategory } from "../pages/product/services/product-service";
 import { productAdapter } from "../pages/product/adapter";
 import { setProducts } from "../redux/slices/product-slice";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { FaCartShopping, FaRegHeart } from "react-icons/fa6";
+import { Dropdown } from "./dropdown";
 
 export const NavBar = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const cart = useSelector((state) => state.cart);
     const cantCart = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+    const inmutableProducts = useSelector((state) => state.products.immutableProducts);
     const userLogged = useSelector((state) => state.user.userLogged);
     const [search, setSearch] = useState("");
     // eslint-disable-next-line no-unused-vars
     const [searchDebounce, setSearchDebounce] = useDebounce(search, 300);
     const userFavoriteProducts = useSelector((state) => state.user.favorites);
     const cantFavorite = userFavoriteProducts ? userFavoriteProducts.length : 0;
+    const [categories, setCategories] = useState([]);
+    const [dropdownClose, setDropdownClose] = useState(false);
+    const [dropdownLabel, setDropdownLabel] = useState('Categories');
+
+    // useEffect(() => {
+    //     if (inmutableProducts && inmutableProducts.length > 0) {
+    //         let lstAux = [];
+    //         inmutableProducts.forEach((curr, idx) => {
+    //             // if (!listDropdownCategories.includes(curr.category)) {
+    //             //     listDropdownCategories.push(<button key={idx} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+    //             //         role="menuitem" onClick={(evt) => alert('Cat1')}>{curr.category}</button>);
+    //             // }
+    //             if (!lstAux.includes(curr.category)) {
+    //                 lstAux.push(curr.category);
+    //             }
+    //         });
+    //         let listDropdownCategories = lstAux.map((curr, idx) => <button key={idx} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+    //         role="menuitem" onClick={() => setSearch(curr)}>{curr}</button>);
+    //         setCategories(listDropdownCategories);
+    //     }
+    // }, [inmutableProducts]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getCategoriesProducts();
+            // console.log('NavBar - getCategoriesProducts', res);
+            let listDropdownCategories = [
+                <button key={-1} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" role="menuitem" onClick={() => searchProducts()}>Categories</button>
+            ];
+            res.data.forEach((curr, idx) => {
+                listDropdownCategories.push(<button key={idx} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" role="menuitem" onClick={() => searchProductsByCategory(curr.name, curr.slug)}>{curr.name}</button>)
+            });
+            setCategories(listDropdownCategories);
+        };
+        fetchData();
+    }, []);
+    
+    useEffect(() => {
+        if (dropdownClose) {
+            setDropdownClose(prevStat => !prevStat);
+        }
+    }, [dropdownClose]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,6 +85,26 @@ export const NavBar = () => {
     };
 
     // console.log('NavBar - userLogged', userLogged);
+
+    // const listDropdownCategories = [
+    //     <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" role="menuitem" onClick={(evt) => alert('Cat1')}>Cat1</button>
+    // ];
+
+    const searchProducts = async () => {
+        const res = await getProducts();
+        const productList = res.data.products.map(itm => productAdapter(itm));
+        dispatch(setProducts(productList));
+        setDropdownLabel('Categories');
+        setDropdownClose(true);
+    }
+
+    const searchProductsByCategory = async (category, slug) => {
+        const res = await getProductsSearchCategory(slug);
+        const productList = res.data.products.map(itm => productAdapter(itm));
+        dispatch(setProducts(productList));
+        setDropdownLabel(category);
+        setDropdownClose(true);
+    };
 
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -99,6 +162,9 @@ export const NavBar = () => {
                 </ul>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <Dropdown isClose={dropdownClose} labelSelected={dropdownLabel} list={categories} />
+                        </li>
                         <li>
                             <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." value={search} onChange={(evt) => setSearch(evt.currentTarget.value)} />
                         </li>
