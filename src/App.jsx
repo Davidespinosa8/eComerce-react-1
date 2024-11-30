@@ -3,7 +3,7 @@ import { About, LoginPage, ProfilePage, RegisterPage } from "./pages/auth/index"
 import HomePage from "./pages/home/home-page";
 import { CartPage, CartCheckoutPage } from "./pages/cart";
 import Layout from "./pages/layout";
-import Contact from "./pages/auth/contact-page";
+import Contact from "./pages/contact/contact-page";
 import { WishlistPage } from "./pages/wishlist";
 
 const App = () => {
