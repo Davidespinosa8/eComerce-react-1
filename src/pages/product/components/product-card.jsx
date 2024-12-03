@@ -26,7 +26,7 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
   };
 
   return (
-    <div className="w-full max-w-sm pb-10">
+    <div className="w-full max-w-sm pb-10 ">
       <div
         className={`flip-card__inner relative w-full h-96 bg-white rounded-lg shadow-lg cursor-pointer transition-transform duration-500 ${
           isFlipped ? "transform rotate-y-180" : ""
