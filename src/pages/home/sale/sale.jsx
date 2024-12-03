@@ -11,7 +11,7 @@ export const Sale = () => {
   const [visibleProducts, setVisibleProducts] = useState(4); // Estado para controlar productos visibles
   const newProducts = salebd.filter((product) => product.isNew);
   const dispatch = useDispatch();
-  const userFavoriteProducts = useSelector((state) => state.user.favorites);
+  const userFavoriteProducts = useSelector((state) => state.user.favorites ? state.user.favorites:[]);
   const cart = useSelector((state) => state.cart);
 
   const handleFavorite = (product, isFavorite) => {

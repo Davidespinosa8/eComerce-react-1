@@ -58,7 +58,7 @@ export const NavBar = () => {
         };
 
         fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [searchDebounce]);
 
     const sessionClose = () => {
