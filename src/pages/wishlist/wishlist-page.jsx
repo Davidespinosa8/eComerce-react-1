@@ -12,15 +12,14 @@ export const WishlistPage = () => {
 
     const handleFavorite = (item, add) => {
         if (add) {
-            dispatch(setFavorite(item));
+            dispatch(setFavorite(item)); 
         } else {
-            dispatch(removeFavorite(item.id));
+            dispatch(removeFavorite(item.id)); 
         }
     };
 
     useEffect(() => {
         const productosSugeridos = () => {
-            let sugerido = true;
             let lst = [];
             products.forEach(p => {
                 let sugerido = true;
@@ -38,27 +37,14 @@ export const WishlistPage = () => {
             });
             setListaSugerida(lst);
         };
+
         if (products && products.length > 0) {
             if (userFavoriteProducts && userFavoriteProducts.length > 0) {
                 productosSugeridos();
             } else {
                 setListaSugerida(products);
             }
-
-            //Para ver las categorias de los items.
-            // let lstCategories = [];
-            // products.forEach(p => {
-            //     if (!lstCategories.includes(p.category)) lstCategories.push(p.category);
-            // });
-            // console.log('lstCategories - products', lstCategories);
-
-            // lstCategories = [];
-            // userFavoriteProducts.forEach(ufp => {
-            //     if (!lstCategories.includes(ufp.category)) lstCategories.push(ufp.category);
-            // });
-            // console.log('lstCategories - userFavoriteProducts', lstCategories);
         }
-        
     }, [products, userFavoriteProducts]);
 
     return (

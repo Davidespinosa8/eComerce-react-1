@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserLogged } from '../redux/slices/user-slice';
@@ -14,7 +15,6 @@ export const NavBar = () => {
     const nav = useNavigate();
     const cart = useSelector((state) => state.cart);
     const cantCart = cart.reduce((acc, curr) => acc + curr.quantity, 0);
-    const inmutableProducts = useSelector((state) => state.products.immutableProducts);
     const userLogged = useSelector((state) => state.user.userLogged);
     const [search, setSearch] = useState("");
     // eslint-disable-next-line no-unused-vars
@@ -24,24 +24,6 @@ export const NavBar = () => {
     const [categories, setCategories] = useState([]);
     const [dropdownClose, setDropdownClose] = useState(false);
     const [dropdownLabel, setDropdownLabel] = useState('Categories');
-
-    // useEffect(() => {
-    //     if (inmutableProducts && inmutableProducts.length > 0) {
-    //         let lstAux = [];
-    //         inmutableProducts.forEach((curr, idx) => {
-    //             // if (!listDropdownCategories.includes(curr.category)) {
-    //             //     listDropdownCategories.push(<button key={idx} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-    //             //         role="menuitem" onClick={(evt) => alert('Cat1')}>{curr.category}</button>);
-    //             // }
-    //             if (!lstAux.includes(curr.category)) {
-    //                 lstAux.push(curr.category);
-    //             }
-    //         });
-    //         let listDropdownCategories = lstAux.map((curr, idx) => <button key={idx} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-    //         role="menuitem" onClick={() => setSearch(curr)}>{curr}</button>);
-    //         setCategories(listDropdownCategories);
-    //     }
-    // }, [inmutableProducts]);
     useEffect(() => {
         const fetchData = async () => {
             const res = await getCategoriesProducts();
@@ -84,11 +66,6 @@ export const NavBar = () => {
         nav("/");
     };
 
-    // console.log('NavBar - userLogged', userLogged);
-
-    // const listDropdownCategories = [
-    //     <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" role="menuitem" onClick={(evt) => alert('Cat1')}>Cat1</button>
-    // ];
 
     const searchProducts = async () => {
         const res = await getProducts();
@@ -113,10 +90,6 @@ export const NavBar = () => {
             </div>
 
             <div className="flex flex-wrap items-center justify-between mx-auto p-2">
-
-                {/* <a href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold">
-                    Exclusive
-                </a> */}
                 <Link to={'/login'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold">
                     Exclusive
                 </Link>
@@ -128,33 +101,22 @@ export const NavBar = () => {
                 </button>
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        {/* <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Home
-                        </a> */}
                         <Link to={'/'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             Home
                         </Link>
                     </li>
                     <li>
-                        {/* <a href="/contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Contact
-                        </a> */}
                         <Link to={'/contact'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             Contact
                         </Link>
                     </li>
                     <li>
-                        {/* <a href="/about" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            About
-                        </a> */}
                         <Link to={'/about'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             About
                         </Link>
                     </li>
                     <li>
-                        {/* <a href="/register" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Sign Up
-                        </a> */}
+                        
                         <Link to={'/register'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             Sign Up
                         </Link>
@@ -169,20 +131,13 @@ export const NavBar = () => {
                             <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." value={search} onChange={(evt) => setSearch(evt.currentTarget.value)} />
                         </li>
                         <li>
-                            {/* <a href="/favorites" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                <FaRegHeart />
-                                {cantFavorite > 0 ? cantFavorite : ''}
-                            </a> */}
+                            
                             <Link to={'/favorites'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <FaRegHeart />
                                 {cantFavorite > 0 ? cantFavorite : ''}
                             </Link>
                         </li>
                         <li>
-                            {/* <a href="/cart" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                <FaCartShopping />
-                                {cantCart > 0 ? cantCart : ''}
-                            </a> */}
                             <Link to={'/cart'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 <FaCartShopping />
                                 {cantCart > 0 ? cantCart : ''}
@@ -193,23 +148,8 @@ export const NavBar = () => {
                                 <li>{userLogged.name}</li>
                                 <li><button onClick={sessionClose}>Cerrar sesión</button></li>
                             </>
-                            : <>
-                                {/* <li>
-                                    <a href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                        Inicia sesión
-                                    </a>
-                                </li> */}
-                                {/* <li>
-                                    <a href="/register" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                        Registrate
-                                    </a>
-                                </li> */}
-                            </>}
-                        {/* <li>
-                <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  Contact
-                </a>
-              </li> */}
+                            : <> </>}
+                        
                     </ul>
                 </div>
             </div>
