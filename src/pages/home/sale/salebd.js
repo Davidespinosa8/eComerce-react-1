@@ -4,7 +4,7 @@ export const salebd = [
     title: "iPhone 15 Pro",
     description: "El último modelo de Apple con tecnología avanzada.",
     price: 999.99,
-    images: ["/src/asset/sale/1.webp"],
+    images: ["/asset/sale/1.webp"],
     isNew: true,
   },
   {
@@ -12,7 +12,7 @@ export const salebd = [
     title: "Lentes de Sol",
     description: "Estilo y protección para tus ojos.",
     price: 49.99,
-    images: ["/src/asset/sale/2.webp"],
+    images: ["/asset/sale/2.webp"],
     isNew: true,
   },
   {
@@ -20,7 +20,7 @@ export const salebd = [
     title: "Oculus con Joystick",
     description: "Sumérgete en la realidad virtual.",
     price: 299.99,
-    images: ["/src/asset/sale/3.webp"],
+    images: ["/asset/sale/3.webp"],
     isNew: true,
   },
   {
@@ -28,7 +28,7 @@ export const salebd = [
     title: "PS5",
     description: "La consola de última generación de Sony.",
     price: 499.99,
-    images: ["/src/asset/sale/4.webp"],
+    images: ["/asset/sale/4.webp"],
     isNew: true,
   },
   {
@@ -36,7 +36,7 @@ export const salebd = [
     title: "Auriculares",
     description: "Disfruta de tu música con calidad de sonido superior.",
     price: 29.99,
-    images: ["/src/asset/sale/5.webp"],
+    images: ["/asset/sale/5.webp"],
     isNew: true,
   },
   {
@@ -44,7 +44,7 @@ export const salebd = [
     title: "Micrófono Tipo Podcast",
     description: "Perfecto para grabaciones y streaming.",
     price: 89.99,
-    images: ["/src/asset/sale/6.webp"],
+    images: ["/asset/sale/6.webp"],
     isNew: true,
   },
   {
@@ -52,7 +52,7 @@ export const salebd = [
     title: "Auriculares Bluetooth",
     description: "Conectividad inalámbrica para mayor comodidad.",
     price: 39.99,
-    images: ["/src/asset/sale/7.webp"],
+    images: ["/asset/sale/7.webp"],
     isNew: true,
   },
   {
@@ -60,7 +60,7 @@ export const salebd = [
     title: "Luces LED de Decoración",
     description: "Crea ambientes únicos con iluminación LED.",
     price: 19.99,
-    images: ["/src/asset/sale/8.webp"],
+    images: ["/asset/sale/8.webp"],
     isNew: true,
   },
   {
@@ -68,7 +68,7 @@ export const salebd = [
     title: "Pantalla Ultra HS Curva",
     description: "Resolución increíble y diseño elegante.",
     price: 399.99,
-    images: ["/src/asset/sale/9.webp"],
+    images: ["/asset/sale/9.webp"],
     isNew: true,
   },
   {
@@ -76,7 +76,7 @@ export const salebd = [
     title: "Smartwatch",
     description: "Mantente conectado y activo con estilo.",
     price: 149.99,
-    images: ["/src/asset/sale/10.webp"],
+    images: ["/asset/sale/10.webp"],
     isNew: true,
   },
 ];
