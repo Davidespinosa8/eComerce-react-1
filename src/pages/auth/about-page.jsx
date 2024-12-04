@@ -31,7 +31,7 @@ export const About = () => {
           }}
         >
           <img
-            src= "src/asset/vendedor/Productor.png"
+            src= "/asset/vendedor/Productor.png"
             alt="Personaje"
             className="w-3/4 h-3/4 "
           />
@@ -144,7 +144,7 @@ export const About = () => {
               className="flex flex-col items-center gap-4 p-4 border border-gray-300 rounded-lg"
             >
               <img
-                src={`/src/asset/support/${name}.webp`}
+                src={`/asset/support/${name}.webp`}
                 alt={`${name}`}
                 className="w-48 h-48 rounded-full object-cover"
               />
