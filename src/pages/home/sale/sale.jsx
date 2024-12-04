@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { salebd } from "./salebd"; 
+import { salebd } from "./salebd";
 import { FaCartPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../../redux/slices/cart-slice";
 import { FaStar } from "react-icons/fa6";
-import { message } from "antd"; 
+import { message } from "antd";
 import { setFavorite, removeFavorite } from "../../../redux/slices/user-slice";
 
 export const Sale = () => {
   const [visibleProducts, setVisibleProducts] = useState(4); // Estado para controlar productos visibles
   const newProducts = salebd.filter((product) => product.isNew);
   const dispatch = useDispatch();
+  const userLogged = useSelector((state) => state.user.userLogged);
   const userFavoriteProducts = useSelector((state) => state.user.favorites);
   const cart = useSelector((state) => state.cart);
 
