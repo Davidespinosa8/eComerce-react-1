@@ -11,7 +11,9 @@ export const Sale = () => {
   const [visibleProducts, setVisibleProducts] = useState(4); // Estado para controlar productos visibles
   const newProducts = salebd.filter((product) => product.isNew);
   const dispatch = useDispatch();
-  const userFavoriteProducts = useSelector((state) => state.user.favorites);
+  const userLogged = useSelector((state) => state.user.userLogged);
+  const userFavoriteProducts = useSelector(state => state.user.favorites);
+  // const userFavoriteProducts = useSelector((state) => state.user.favorites ? state.user.favorites : []);
   const cart = useSelector((state) => state.cart);
 
   const handleFavorite = (product, isFavorite) => {
@@ -35,6 +37,8 @@ export const Sale = () => {
   const handleLoadMore = () => {
     setVisibleProducts((prev) => prev + 4); // Incrementa la cantidad de productos visibles en bloques de 4
   };
+
+  // console.log('Sale - userFavoriteProducts', userFavoriteProducts);
 
   return (
     <section className="py-8">
@@ -75,12 +79,12 @@ export const Sale = () => {
             </div>
 
             {/* Estrella de favoritos */}
-            <button
+            {userLogged && <button
               className="absolute top-2 right-2 text-gray-500 hover:text-yellow-400 transition-all duration-300"
               onClick={() => handleFavorite(product, userFavoriteProducts.some((item) => item.id === product.id))}
             >
               <FaStar size={24} className={userFavoriteProducts.some((item) => item.id === product.id) ? 'text-yellow-400' : 'text-gray-500'} />
-            </button>
+            </button>}
           </div>
         ))}
       </div>

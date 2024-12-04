@@ -27,7 +27,7 @@ export const NavBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await getCategoriesProducts();
-            // console.log('NavBar - getCategoriesProducts', res);
+            console.log('NavBar - getCategoriesProducts', res);
             let listDropdownCategories = [
                 <button key={-1} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" role="menuitem" onClick={() => searchProducts()}>Categories</button>
             ];
