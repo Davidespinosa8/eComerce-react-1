@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { About, LoginPage, ProfilePage, RegisterPage } from "./pages/auth/index";
 import HomePage from "./pages/home/home-page";
-import { CartPage, CartCheckoutPage } from "./pages/cart";
+import { CartPage, CartCheckoutPage, CartFinalyPage } from "./pages/cart";
 import Layout from "./pages/layout";
 import Contact from "./pages/contact/contact-page";
 import { WishlistPage } from "./pages/wishlist";
@@ -17,6 +17,7 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/cart/checkout" element={<CartCheckoutPage />} />
+            <Route path="/cart/checkout/finaly" element={<CartFinalyPage />} />
             <Route path="/favorites" element={<WishlistPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />

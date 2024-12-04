@@ -6,11 +6,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCcMastercard, FaCcVisa } from "react-icons/fa6";
 import { checkout } from "./services";
+import { checkoutCart } from "../../redux/slices/cart-slice";
 
 export const CartCheckoutPage = () => {
     const cart = useSelector((state) => state.cart);
+    const userLogged = useSelector((state) => state.user.userLogged);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const shippingCost = 50;
     const subtotal = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
     const formikMessages = {
         required: "Este campo es obligatorio",
@@ -23,13 +26,13 @@ export const CartCheckoutPage = () => {
 
     const formik = useFormik({
         initialValues: {
-            firstName: '',
+            firstName: userLogged ? userLogged.name : '',
             companyName: '',
             streetAddress: '',
             addressOptional: '',
             townCity: '',
             phone: '',
-            email: '',
+            email: userLogged ? userLogged.email : '',
             infoFastCheckout: false,
             cuponCode: '',
             payMethod: 1
@@ -42,20 +45,22 @@ export const CartCheckoutPage = () => {
             email: Yup.string().email(formikMessages.email).required(formikMessages.required)
         }),
         onSubmit: async (values) => {
-            return alert(JSON.stringify(values, null, 2));
+            // return alert(JSON.stringify(values, null, 2));
             setIsLoading(true);
-            const response = await checkout(values);
-            console.log(response);
-            if (!response.data.success) {
-                message.error(response.data.msg);
-                setIsLoading(false);
-            } else {
-                message.success('Usted inicio sesión correctamente.');
-                const user = response.data.result;
-                dispatch(setUserLogged(user));
-                // dispatch(checkoutCart());
-                navigate("/");
-            }
+            // const response = await checkout(values);
+            // console.log(response);
+            // if (!response.data.success) {
+            //     message.error(response.data.msg);
+            //     setIsLoading(false);
+            // } else {
+            //     message.success('Usted inicio sesión correctamente.');
+            //     const user = response.data.result;
+            //     dispatch(setUserLogged(user));
+            //     // dispatch(checkoutCart());
+            //     navigate("/");
+            // }
+            dispatch(checkoutCart());
+            navigate("/cart/checkout/finaly");
         },
     });
 
@@ -70,7 +75,7 @@ export const CartCheckoutPage = () => {
                         <label>First Name*</label>
                         <input type={"text"} id={"firstName"} name={"firstName"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.firstName} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {formik.touched.firstName && formik.errors.firstName ? (
-                            <div className={"text-danger"}>{formik.errors.firstName}</div>
+                            <div className={"text-red-800"}>{formik.errors.firstName}</div>
                         ) : null}
                     </div>
 
@@ -78,7 +83,7 @@ export const CartCheckoutPage = () => {
                         <label>Company Name</label>
                         <input type={"text"} id={"companyName"} name={"companyName"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.companyName} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {/* {formik.touched.firstName && formik.errors.firstName ? (
-                            <div className={"text-danger"}>{formik.errors.firstName}</div>
+                            <div className={"text-red-800"}>{formik.errors.firstName}</div>
                         ) : null} */}
                     </div>
 
@@ -86,15 +91,15 @@ export const CartCheckoutPage = () => {
                         <label>Street Address*</label>
                         <input type={"text"} id={"streetAddress"} name={"streetAddress"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.streetAddress} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {formik.touched.streetAddress && formik.errors.streetAddress ? (
-                            <div className={"text-danger"}>{formik.errors.streetAddress}</div>
+                            <div className={"text-red-800"}>{formik.errors.streetAddress}</div>
                         ) : null}
                     </div>
 
                     <div className="mt-4">
-                        <label>Apartment, floor, etc. (OPtional)</label>
+                        <label>Apartment, floor, etc. (Optional)</label>
                         <input type={"text"} id={"addressOptional"} name={"addressOptional"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.addressOptional} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {/* {formik.touched.firstName && formik.errors.firstName ? (
-                            <div className={"text-danger"}>{formik.errors.firstName}</div>
+                            <div className={"text-red-800"}>{formik.errors.firstName}</div>
                         ) : null} */}
                     </div>
 
@@ -102,7 +107,7 @@ export const CartCheckoutPage = () => {
                         <label>Town/City*</label>
                         <input type={"text"} id={"townCity"} name={"townCity"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.townCity} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {formik.touched.townCity && formik.errors.townCity ? (
-                            <div className={"text-danger"}>{formik.errors.townCity}</div>
+                            <div className={"text-red-800"}>{formik.errors.townCity}</div>
                         ) : null}
                     </div>
 
@@ -110,7 +115,7 @@ export const CartCheckoutPage = () => {
                         <label>Phone Number*</label>
                         <input type={"text"} id={"phone"} name={"phone"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.phone} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {formik.touched.phone && formik.errors.phone ? (
-                            <div className={"text-danger"}>{formik.errors.phone}</div>
+                            <div className={"text-red-800"}>{formik.errors.phone}</div>
                         ) : null}
                     </div>
 
@@ -118,7 +123,7 @@ export const CartCheckoutPage = () => {
                         <label>Email Address*</label>
                         <input type={"email"} id={"email"} name={"email"} autoComplete={"email"} placeholder="Email or Phone Number" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         {formik.touched.email && formik.errors.email ? (
-                            <div className={"text-danger"}>{formik.errors.email}</div>
+                            <div className={"text-red-800"}>{formik.errors.email}</div>
                         ) : null}
                     </div>
 
@@ -141,6 +146,21 @@ export const CartCheckoutPage = () => {
                                 <div className="text-end">${item.price * item.quantity}</div>
                             </>
                         )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <span>Subtotal</span>
+                        </div>
+                        <div className="text-end">${subtotal}</div>
+                        <div>
+                            <span>Shipping</span>
+                        </div>
+                        <div className="text-end">{formik.values.cuponCode === 'GRUPO2' ? 'Free' : `$${shippingCost}`}</div>
+                        <div>
+                            <span>Total</span>
+                        </div>
+                        <div className="text-end">${subtotal + (formik.values.cuponCode === 'GRUPO2' ? 0 : shippingCost)}</div>
                     </div>
 
                     <div className="mt-5">

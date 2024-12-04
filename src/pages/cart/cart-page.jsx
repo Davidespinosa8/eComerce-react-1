@@ -9,6 +9,7 @@ export const CartPage = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const [cuponCode, setCuponCode] = useState('');
+    const shippingCost = 50;
     const subtotal = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
 
     const backShop = () => {
@@ -76,16 +77,16 @@ export const CartPage = () => {
                 {/* <button className="float-end rounded border-2 border-primary-100 px-6 pb-[6px] pt-2 leading-normal text-primary-700 transition duration-150 ease-in-out hover:border-primary-accent-200 hover:bg-secondary-50/50 focus:border-primary-accent-200 focus:bg-secondary-50/50 focus:outline-none focus:ring-0 active:border-primary-accent-200 dark:border-primary-400 dark:text-primary-300 dark:hover:bg-blue-950 dark:focus:bg-blue-950 ms-4">
                     Update Cart
                 </button> */}
-                {cart.length > 0 && <button className="float-end z-[2] inline-block rounded bg-red-800 text-white px-6 pb-[6px] ms-4">
+                {/* {cart.length > 0 && <button className="float-end z-[2] inline-block rounded bg-red-800 text-white px-6 pb-[6px] ms-4">
                     Update Cart
-                </button>}
+                </button>} */}
             </div>
 
             {cart.length > 0 && <div className="grid grid-cols-2 gap-2 ms-2 mt-5 me-2 mb-5">
                 <div>
                     <div className="relative mb-4 flex flex-wrap items-stretch">
                         <input type="text" className="relative m-0 -ms-px block flex-auto rounded-e border border-solid border-neutral-200 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-surface outline-none transition duration-200 ease-in-out placeholder:text-neutral-500 focus:z-[3] focus:border-primary focus:shadow-inset focus:outline-none motion-reduce:transition-none dark:border-white/10 dark:text-white dark:placeholder:text-neutral-200 dark:autofill:shadow-autofill dark:focus:border-primary" placeholder="Cupon Code" value={cuponCode} onChange={(evt) => setCuponCode(evt.currentTarget.value)} />
-                        <button className="z-[2] inline-block rounded bg-red-800 text-white px-6 pb-[6px] ms-4">Apply Coupon</button>
+                        {/* <button className="z-[2] inline-block rounded bg-red-800 text-white px-6 pb-[6px] ms-4">Apply Coupon</button> */}
                     </div>
                 </div>
 
@@ -104,8 +105,8 @@ export const CartPage = () => {
 
                         <div className="mt-3">
                             <span>Shipping</span>
-                            <span className="float-end">$
-                                Free
+                            <span className="float-end">
+                                {cuponCode === 'GRUPO2' ? 'Free' : `$${shippingCost}`}
                             </span>
                         </div>
 
@@ -114,7 +115,7 @@ export const CartPage = () => {
                         <div className="mt-3">
                             <span>Total</span>
                             <span className="float-end">$
-                                {subtotal}
+                                {subtotal + (cuponCode === 'GRUPO2' ? 0 : shippingCost)}
                             </span>
                         </div>
 

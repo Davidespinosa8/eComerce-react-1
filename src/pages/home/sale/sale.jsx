@@ -6,6 +6,7 @@ import { addToCart, removeFromCart } from "../../../redux/slices/cart-slice";
 import { FaStar } from "react-icons/fa6";
 import { message } from "antd";
 import { setFavorite, removeFavorite } from "../../../redux/slices/user-slice";
+import { cartAdapter } from "../../cart/adapter";
 
 export const Sale = () => {
   const [visibleProducts, setVisibleProducts] = useState(4); // Estado para controlar productos visibles
@@ -24,7 +25,9 @@ export const Sale = () => {
   };
 
   const addProductToCart = (product) => {
-    dispatch(addToCart(product));
+    // dispatch(addToCart(product));
+    const cartProduct = cartAdapter(product);
+    dispatch(addToCart(cartProduct));
     message.success("Artículo agregado al carrito.");
   };
 
