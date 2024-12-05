@@ -26,7 +26,7 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
   };
 
   return (
-    <div className="w-full max-w-sm pb-10 ">
+    <div className="w-full max-w-sm pb-10">
       <div
         className={`flip-card__inner relative w-full h-96 bg-white rounded-lg shadow-lg cursor-pointer transition-transform duration-500 ${
           isFlipped ? "transform rotate-y-180" : ""
@@ -36,8 +36,24 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
       >
         {/* Lado Frontal */}
         <div
-          className={`flip-card__front p-6 flex flex-col items-center justify-center gap-4 ${
+          className={`flip-card__front p-6 flex items-center justify-center bg-gray-200 rounded-lg ${
             isFlipped ? "hidden" : "flex"
+          }`}
+        >
+          <div>
+            <img
+              src={item.images ? item.images[0] : ""}
+              alt={item.title}
+              className="w-full h-52 object-cover rounded-md"
+              style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }}
+            />
+          </div>
+        </div>
+
+        {/* Lado Posterior */}
+        <div
+          className={`flip-card__back p-6 flex flex-col items-center justify-center gap-4 ${
+            isFlipped ? "flex" : "hidden"
           }`}
         >
           <img
@@ -52,32 +68,17 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
           <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
           <p className="text-sm text-gray-600 text-center">{item.description}</p>
           <p className="text-xl font-bold text-blue-500">${item.price}</p>
-        </div>
-
-        {/* Lado Posterior */}
-        <div
-          className={`flip-card__back p-6 flex items-center justify-center bg-gray-200 rounded-lg ${
-            isFlipped ? "flex" : "hidden"
-          }`}
-        >
-          <div className="relative w-full">
-            <img
-              src={item.images ? item.images[0] : ""}
-              alt={item.title}
-              className="w-full h-60 object-cover rounded-md"
-            />
-            {user && (
-              <span
-                className={`absolute top-2 right-2 ${
-                  favorite ? "text-red-700" : "text-gray-500"
-                }`}
-                role="button"
-                onClick={() => handleFavorite(item, !favorite)}
-              >
-                <FaStar size={24} />
-              </span>
-            )}
-          </div>
+          {user && (
+            <span
+              className={`absolute top-2 right-2 ${
+                favorite ? "text-red-700" : "text-gray-500"
+              }`}
+              role="button"
+              onClick={() => handleFavorite(item, !favorite)}
+            >
+              <FaStar size={24} />
+            </span>
+          )}
         </div>
       </div>
 
@@ -90,7 +91,7 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
             }}
             className="text-slate-950 flex items-center gap-2 px-4 py-2 border border-slate-950 rounded-lg"
           >
-            <FaTrash /> 
+            <FaTrash />
           </button>
         ) : (
           <button
@@ -99,7 +100,7 @@ export const ProductCard = ({ item, favorite, handleFavorite, user }) => {
               addProductToCart(item);
             }}
           >
-            <FaCartPlus /> 
+            <FaCartPlus />
           </button>
         )}
       </div>
